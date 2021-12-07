@@ -34,7 +34,7 @@ class Training:
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        pass
+        return self.action * LEN_STEP / M_IN_KM
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
