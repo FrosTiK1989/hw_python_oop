@@ -1,23 +1,18 @@
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
-    def __init__(self,
-                training_type: str,
-                duration: float,
-                distance: float,
-                speed: float,
-                calories: float) -> None:
+    def __init__(self, training_type: str, duration: float, distance: float, speed: float, calories: float) -> None:
             self.training_type = training_type
             self.duration = duration
             self.distance = distance
             self.speed = speed
             self.calories = calories
     def get_message(self) -> str:
-        return (f'Тип тренировки: {training_type}; '
-                f'Длительность: {duration:.3f} ч.; '
-                f'Дистанция: {distance:.3f} км; '
-                f'Ср. скорость: {speed:.3f} км/ч; '
-                f'Потрачено ккал: {calories:.3f}.')
+        return (f'Тип тренировки: {self.training_type}; '
+                f'Длительность: {self.duration:.3f} ч.; '
+                f'Дистанция: {self.distance:.3f} км; '
+                f'Ср. скорость: {self.speed:.3f} км/ч; '
+                f'Потрачено ккал: {self.calories:.3f}.')
 
 
 class Training:
@@ -55,9 +50,10 @@ class Running(Training):
     """Тренировка: бег."""
     def __init__(self, action: int, duration: float, weight: float) -> None:
         super().__init__(action, duration, weight)
-        cf_cal_1 = 18
         cf_cal_2 = 20
     def get_spent_calories(self):
+        cf_cal_1 = 18
+        cf_cal_2 = 20
         return ((cf_cal_1 * self.get_mean_speed() - cf_cal_2) * self.weight / self.M_IN_KM * (self.duration) * 60)
 
 
@@ -80,7 +76,7 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
     def get_mean_speed(self) -> float:
-        return self.length_pool * self.count_pool / M_IN_KM / self.duration
+        return self.length_pool * self.count_pool / self.M_IN_KM / self.duration
     def get_spent_calories(self) -> float:
         cf_cal_1 = 1.1
         return (self.get_mean_speed() + cf_cal_1) * 2 * self.weight
