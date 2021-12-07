@@ -20,6 +20,8 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
+    M_IN_KM = 1000
+    LEN_STEP = 0.65
 
     def __init__(self,
                  action: int,
