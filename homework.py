@@ -7,14 +7,16 @@ class InfoMessage:
                 distance: float,
                 speed: float,
                 calories: float) -> None:
-        self.training_type = training_type
-        self.duration = duration
-        self.distance = distance
-        self.speed = speed
-        self.calories = calories
-    def get_message() -> str:
-        return (f'Тип тренировки: {training_type}; Длительность: {duration:.3f} ч.; '
-                f'Дистанция: {distance:.3f} км; Ср. скорость: {speed:.3f} км/ч; '
+            self.training_type = training_type
+            self.duration = duration
+            self.distance = distance
+            self.speed = speed
+            self.calories = calories
+    def get_message(self) -> str:
+        return (f'Тип тренировки: {training_type}; '
+                f'Длительность: {duration:.3f} ч.; '
+                f'Дистанция: {distance:.3f} км; '
+                f'Ср. скорость: {speed:.3f} км/ч; '
                 f'Потрачено ккал: {calories:.3f}.')
 
 
@@ -28,9 +30,9 @@ class Training:
                  duration: float,
                  weight: float,
                  ) -> None:
-        self.action = action
-        self.duration = duration
-        self.weight = weight
+            self.action = action
+            self.duration = duration
+            self.weight = weight
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -38,7 +40,7 @@ class Training:
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
-        return self.distance / self.duration
+        return self.get_distance() / self.duration
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -55,13 +57,19 @@ class Running(Training):
         super().__init__(action, duration, weight)
         cf_cal_1 = 18
         cf_cal_2 = 20
-        return ((cf_cal_1 * self.get_mean_speed() - cf_cal_2) * self.weight / 
-                (self.M_IN_KM * self.duration) * 60)
+    def get_spent_calories(self):
+        return ((cf_cal_1 * self.get_mean_speed() - cf_cal_2) * self.weight / self.M_IN_KM * (self.duration) * 60)
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    pass
+    def __init__(self, action: int, duration: float, weight: float, height: float) -> None:
+        super().__init__(action, duration, weight)
+        self.height = height
+    def get_spent_calories(self) -> float:
+        cf_cal_1 = 0.035
+        cf_cal_2 = 0.029
+        return (cf_cal_1 * self.weight + (self.get_mean_speed() ** 2 // self.height) * cf_cal_2 * self.weight) * (self.duration * 60)
 
 
 class Swimming(Training):
