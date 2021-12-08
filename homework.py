@@ -1,5 +1,3 @@
-from _typeshed import Self
-
 
 class InfoMessage:
     """Информационное сообщение о тренировке."""
@@ -46,7 +44,11 @@ class Training:
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        pass
+        return InfoMessage(training_type = self.__class__.__name__,
+                duration = self.duration,
+                distance = self.get_distance(),
+                speed = self.get_mean_speed(),
+                calories = self.get_spent_calories())
 
 
 class Running(Training):
@@ -99,7 +101,7 @@ def read_package(workout_type: str, data: list) -> Training:
 def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
-    print(InfoMessage.get_message())
+    print(InfoMessage.get_message(info))
 
 
 
