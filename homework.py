@@ -1,3 +1,6 @@
+from _typeshed import Self
+
+
 class InfoMessage:
     """Информационное сообщение о тренировке."""
 
@@ -84,12 +87,20 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    pass
+    workout = {
+        'SWM': Swimming,
+        'RUN': Running,
+        'WLK': SportsWalking
+        }
+    training = workout[workout_type](*data)
+    return training
 
 
 def main(training: Training) -> None:
     """Главная функция."""
-    pass
+    info = training.show_training_info()
+    print(InfoMessage.get_message())
+
 
 
 if __name__ == '__main__':
