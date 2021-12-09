@@ -62,18 +62,11 @@ class Training:
 class Running(Training):
     """Тренировка: бег."""
     def __init__(
-<<<<<<< HEAD
             self,
             action: int,
             duration: float,
             weight: float
             ) -> None:
-=======
-                self,
-                action: int,
-                duration: float,
-                weight: float) -> None:
->>>>>>> ce5f805d6d635a226d79ea2ac84e2c50f4387da9
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self):
@@ -86,20 +79,12 @@ class Running(Training):
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
     def __init__(
-<<<<<<< HEAD
             self,
             action: int,
             duration: float,
             weight: float,
             height: float
             ) -> None:
-=======
-                self,
-                action: int,
-                duration: float,
-                weight: float,
-                height: float) -> None:
->>>>>>> ce5f805d6d635a226d79ea2ac84e2c50f4387da9
         super().__init__(action, duration, weight)
         self.height = height
 
@@ -115,7 +100,6 @@ class Swimming(Training):
     LEN_STEP = 1.38
 
     def __init__(
-<<<<<<< HEAD
             self,
             action: int,
             duration: float,
@@ -123,14 +107,6 @@ class Swimming(Training):
             length_pool: float,
             count_pool: float
             ) -> None:
-=======
-                self,
-                action: int,
-                duration: float,
-                weight: float,
-                length_pool: float,
-                count_pool: float) -> None:
->>>>>>> ce5f805d6d635a226d79ea2ac84e2c50f4387da9
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
