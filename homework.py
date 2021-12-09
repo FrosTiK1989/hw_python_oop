@@ -58,31 +58,44 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    def __init__(self, action: int, duration: float, weight: float) -> None:
+    def __init__(
+                self,
+                action: int,
+                duration: float,
+                weight: float) -> None:
         super().__init__(action, duration, weight)
 
     def get_spent_calories(self):
         cf_cal_1 = 18
         cf_cal_2 = 20
-        return ((cf_cal_1 * self.get_mean_speed() - cf_cal_2) * self.weight / self.M_IN_KM * (self.duration) * 60)
+        return (((cf_cal_1 * self.get_mean_speed() - cf_cal_2) * self.weight
+                / self.M_IN_KM * (self.duration) * 60))
 
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    def __init__(self, action: int, duration: float, weight: float, height: float) -> None:
+    def __init__(
+                self,
+                action: int,
+                duration: float,
+                weight: float,
+                height: float) -> None:
         super().__init__(action, duration, weight)
         self.height = height
 
     def get_spent_calories(self) -> float:
         cf_cal_1 = 0.035
         cf_cal_2 = 0.029
-        return (cf_cal_1 * self.weight + (self.get_mean_speed() ** 2 // self.height) * cf_cal_2 * self.weight) * (self.duration * 60)
+        return ((cf_cal_1 * self.weight + (self.get_mean_speed() ** 2
+                // self.height) * cf_cal_2 * self.weight) * (self.duration * 60))
 
 
 class Swimming(Training):
     """Тренировка: плавание."""
     LEN_STEP = 1.38
-    def __init__(self,
+
+    def __init__(
+                self,
                 action: int,
                 duration: float,
                 weight: float,
@@ -105,8 +118,7 @@ def read_package(workout_type: str, data: list) -> Training:
     workout = {
         'SWM': Swimming,
         'RUN': Running,
-        'WLK': SportsWalking
-        }
+        'WLK': SportsWalking}
     training = workout[workout_type](*data)
     return training
 
@@ -115,6 +127,7 @@ def main(training: Training) -> None:
     """Главная функция."""
     info = training.show_training_info()
     print(InfoMessage.get_message(info))
+
 
 if __name__ == '__main__':
     packages = [
