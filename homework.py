@@ -12,7 +12,7 @@ class InfoMessage:
     speed: float
     calories: float
 
-    MESSAGE: str = (
+    MESSAGE = (
         "Тип тренировки: {training_type}; "
         "Длительность: {duration:.3f} ч.; "
         "Дистанция: {distance:.3f} км; "
@@ -24,22 +24,17 @@ class InfoMessage:
         return self.MESSAGE.format(**asdict(self))
 
 
+@dataclass
 class Training:
     """Базовый класс тренировки."""
 
-    M_IN_KM: int = 1000
-    LEN_STEP: float = 0.65
-    MIN_IN_HR: int = 60
+    action: int
+    duration: float
+    weight: float
 
-    def __init__(
-        self,
-        action: int,
-        duration: float,
-        weight: float,
-    ) -> None:
-        self.action = action
-        self.duration = duration
-        self.weight = weight
+    M_IN_KM = 1000
+    LEN_STEP = 0.65
+    MIN_IN_HR = 60
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
@@ -64,14 +59,12 @@ class Training:
         )
 
 
+@dataclass
 class Running(Training):
     """Тренировка: бег."""
 
     CF_CALORIES_MEAN_SPEED_MULTIPLIER: int = 18
     CF_CALORIES_MEAN_SPEED_MINUS: int = 20
-
-    def __init__(self, action: int, duration: float, weight: float) -> None:
-        super().__init__(action, duration, weight)
 
     def get_spent_calories(self):
         return (
@@ -86,17 +79,14 @@ class Running(Training):
         )
 
 
+@dataclass
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
 
+    height: float
+
     CF_CALORIES_WEIGHT_MULTIPLIER: float = 0.035
     CF_CALORIES_HEIGHT_MULTIPLIER: float = 0.029
-
-    def __init__(
-        self, action: int, duration: float, weight: float, height: float
-    ) -> None:
-        super().__init__(action, duration, weight)
-        self.height = height
 
     def get_spent_calories(self) -> float:
         return (
@@ -107,23 +97,15 @@ class SportsWalking(Training):
         ) * (self.duration * self.MIN_IN_HR)
 
 
+@dataclass
 class Swimming(Training):
     """Тренировка: плавание."""
 
+    length_pool: float
+    count_pool: float
+
     LEN_STEP: float = 1.38
     CF_CALORIES_MEAN_SPEED_PLUS: float = 1.1
-
-    def __init__(
-        self,
-        action: int,
-        duration: float,
-        weight: float,
-        length_pool: float,
-        count_pool: float,
-    ) -> None:
-        super().__init__(action, duration, weight)
-        self.length_pool = length_pool
-        self.count_pool = count_pool
 
     def get_mean_speed(self) -> float:
         return (
