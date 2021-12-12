@@ -47,7 +47,8 @@ class Training:
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
         raise NotImplementedError(
-            f"Необходимо реализовать метод get_spent_calories в классе {type(self).__name__}"
+            f"Необходимо реализовать метод get_spent_calories"
+            f" в классе {type(self).__name__}"
         )
 
     def show_training_info(self) -> InfoMessage:
